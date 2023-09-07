@@ -85,7 +85,7 @@ async function generateNewToken(authorizationCode, codeVerifier) {
 }
 
 
-// basic API call to get UserName
+// basic API call to get username
 async function getUserName(accessToken) {
     
     const apiUrl = 'https://api.myanimelist.net/v2/users/@me';
@@ -103,10 +103,25 @@ async function getUserName(accessToken) {
   }
 }
 
-
+// 
 const {codeVerifier: verifier, codeChallenge: challenge} = generateCodeVerifierAndChallenge();
-const userAuthURL = getUserAuthURL(challenge);
-console.log(userAuthURL);
+
+// Define a callback route where the authorization code will be sent.
+app.get('/api/userLogin', async (req, res) => {
+  try {
+    const userAuthURL = getUserAuthURL(challenge);
+    res.json({loginURL: userAuthURL})
+  } catch (error) {
+    console.error('Error generating userAuthURL:', error);
+    res.status(500).send('Error generating userAuthURL');
+}
+});
+
+// base page to greet user and prompt login
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
 
 // Define a callback route where the authorization code will be sent.
 app.get('/oauth', async (req, res) => {
