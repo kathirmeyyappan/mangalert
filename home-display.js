@@ -1,4 +1,4 @@
-let greeting = document.getElementById('malData');
+let greeting = document.getElementById('greeting');
 console.log(greeting)
 
 
