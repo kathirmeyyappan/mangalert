@@ -3,12 +3,20 @@
 
 <head>
     <title>MAL Email Service Home</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script src="home-display.js" defer></script>
 </head>
 
 <body>
     <h1>MAL EMAIL SERVICE</h1>
     <div id = "greeting"></div>
+    <div class = "confirmEmail">
+        <h1>Confirm your Email by submitting it into the field below</h1>
+       <form action = "insertURLHere" method = "post">
+        <input type = "email" class = "emailButton" placeholder='Enter your email'></input>
+        <input type = "submit" class = "emailSubmit" value = "Submit"></input>
+      </form>
+    </div>
 </body>
 
 </html>
