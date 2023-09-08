@@ -8,6 +8,24 @@ import express from 'express';
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyChpRzdkhLgj6pGnhJh_TQ1csc1Weh3qBg",
+  authDomain: "mal-email-service-cc2a4.firebaseapp.com",
+  projectId: "mal-email-service-cc2a4",
+  storageBucket: "mal-email-service-cc2a4.appspot.com",
+  messagingSenderId: "788945138134",
+  appId: "1:788945138134:web:bab92fddc797bc23c2f477"
+};
+
+// Initialize Firebase
+const firebase = initializeApp(firebaseConfig);
+
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -24,7 +42,6 @@ app.listen(port, () => {
 // http request for server end
 import fetch from 'node-fetch';
 import path from 'path';
-
 
 // generates code verfiers for accessing MAL API
 function generateCodeVerifierAndChallenge() {
