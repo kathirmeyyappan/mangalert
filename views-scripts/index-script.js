@@ -1,6 +1,5 @@
 let login = document.getElementById('login');
 
-
 // use this format to make calls to backend (once you've made the express.get in there)
 fetch('/api/userLogin', {
     method: 'GET'
