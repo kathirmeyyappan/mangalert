@@ -13,8 +13,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
 
-// Serve static files from the current directory
-app.use(express.static(__dirname)); 
+// serve static files from the specified directories
+app.use('/views-scripts', express.static(path.join(__dirname, 'views-scripts')));
+app.use('/views', express.static(path.join(__dirname, 'views')));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
@@ -23,6 +24,7 @@ app.listen(port, () => {
 // http request for server end
 import fetch from 'node-fetch';
 import path from 'path';
+
 
 // generates code verfiers for accessing MAL API
 function generateCodeVerifierAndChallenge() {
@@ -75,7 +77,6 @@ async function generateNewToken(authorizationCode, codeVerifier) {
     }
 
     const token = await response.json();
-    console.log(token)
     return token['access_token']
 
   } catch (error) {
@@ -85,7 +86,7 @@ async function generateNewToken(authorizationCode, codeVerifier) {
 }
 
 
-// basic API call to get username
+// basic API call to get user profile data
 async function getUserName(accessToken) {
     
     const apiUrl = 'https://api.myanimelist.net/v2/users/@me';
@@ -103,10 +104,12 @@ async function getUserName(accessToken) {
   }
 }
 
-// 
+
+// get code verifier and challenge for token generation
 const {codeVerifier: verifier, codeChallenge: challenge} = generateCodeVerifierAndChallenge();
 
-// Define a callback route where the authorization code will be sent.
+
+// define callback route where the authorization code will be sent.
 app.get('/api/userLogin', async (req, res) => {
   try {
     const userAuthURL = getUserAuthURL(challenge);
@@ -116,6 +119,7 @@ app.get('/api/userLogin', async (req, res) => {
     res.status(500).send('Error generating userAuthURL');
 }
 });
+
 
 // base page to greet user and prompt login
 app.get('/', (req, res) => {
@@ -128,17 +132,31 @@ app.get('/oauth', async (req, res) => {
   try {
     // get 'code' query parameter from URL and call generateNewToken
     const authorizationCode = req.query.code;
-    const accessToken = await generateNewToken(authorizationCode, verifier);
-    console.log(accessToken)
-    res.redirect(`/home?token=${accessToken}`);
+    res.redirect(`/register?code=${authorizationCode}`)
   } catch (error) {
     console.error('Error generating token:', error);
     res.status(500).send('Error generating token');
 }
 });
 
-app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'home.html'));
+
+// retrieve the token to be used for API calls
+app.get('/getToken', async (req, res) => {
+  try {
+    // get 'code' query parameter from URL and call generateNewToken
+    const authorizationCode = req.headers.authorization;
+    const accessToken = await generateNewToken(authorizationCode, verifier);
+    res.json({token : accessToken})
+  } catch (error) {
+    console.error('Error generating token:', error);
+    res.status(500).send('Error generating token');
+}
+});
+
+
+// page to confirm user login and get/update email
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'registration.html'));
 });
 
 
