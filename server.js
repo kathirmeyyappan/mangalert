@@ -34,6 +34,7 @@ const __dirname = dirname(__filename)
 // serve static files from the specified directories
 app.use('/views-scripts', express.static(path.join(__dirname, 'views-scripts')));
 app.use('/views', express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
