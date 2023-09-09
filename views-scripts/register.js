@@ -1,4 +1,15 @@
 let greeting = document.getElementById('greeting');
+let submitBtn = document.getElementById('submitBtn');
+let emailInput = document.getElementById('emailInput');
+let emailForm = document.getElementById('emailForm');
+
+
+emailForm.addEventListener('submit', function (event) {
+  // prevent default form submission behavior
+  event.preventDefault();
+
+  updateUser(emailInput.value)
+});
 
 const currentURL = window.location.href;
 const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
@@ -13,6 +24,7 @@ fetch('/getToken', {
   })
   .then((response) => response.json())
   .then((data) => {
+    console.log()
     // put token in local storage
     localStorage.setItem('token', data.token);
   })
@@ -21,6 +33,7 @@ fetch('/getToken', {
   });
 
 
+let mal_user_info
 // fetch username for greeting and user registration/checking
 fetch('/api/getUserName', {
     method: 'GET',
@@ -31,8 +44,22 @@ fetch('/api/getUserName', {
   .then((response) => response.json())
   .then((data) => {
     // greet user
+    mal_user_info = data
     greeting.innerText = `Hello, ${data['name']}!`;
   })
   .catch((error) => {
     console.error('Error:', error);
   });
+
+  
+// send back user data to log in firebase
+function updateUser(email) {
+  console.log(mal_user_info)
+  fetch('/writeUserInfo', {
+    method: 'POST',
+    headers: {
+      'Email': email,
+      'MAL_Data': JSON.stringify(mal_user_info)
+    },
+  })
+}

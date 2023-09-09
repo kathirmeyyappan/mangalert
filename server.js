@@ -16,6 +16,7 @@ import { getDatabase, ref, set } from "firebase/database"
 const firebaseConfig = {
   apiKey: "AIzaSyChpRzdkhLgj6pGnhJh_TQ1csc1Weh3qBg",
   authDomain: "mal-email-service-cc2a4.firebaseapp.com",
+  databaseURL: "https://mal-email-service-cc2a4-default-rtdb.firebaseio.com/",
   projectId: "mal-email-service-cc2a4",
   storageBucket: "mal-email-service-cc2a4.appspot.com",
   messagingSenderId: "788945138134",
@@ -122,6 +123,18 @@ async function getUserName(accessToken) {
   }
 }
 
+// (re)write user info to db
+function writeUserInfo(email, user_info) {
+  // assign user path
+  const reference = ref(db, 'users/' + user_info['id']);
+  
+  // write all data to db
+  set(reference, {
+    user_info: user_info,
+    email: email
+  });
+}
+
 
 // get code verifier and challenge for token generation
 const {codeVerifier: verifier, codeChallenge: challenge} = generateCodeVerifierAndChallenge();
@@ -178,7 +191,7 @@ app.get('/register', (req, res) => {
 });
 
 
-// get username
+// get user info
 app.get('/api/getUserName', async (req, res) => {
   try {
     const result = await getUserName(req.headers.authorization);
@@ -190,5 +203,21 @@ app.get('/api/getUserName', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+// get user info
+app.post('/writeUserInfo', async (req, res) => {
+  try {
+    const email = req.headers.email
+    const user_info = JSON.parse(req.headers.mal_data)
+    writeUserInfo(email, user_info)
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
 
 // write all api calls as app.get and use the get with fetch in frontend

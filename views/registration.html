@@ -4,7 +4,7 @@
 <head>
     <title>MAL Email Service Home</title>
     <link rel="stylesheet" type="text/css" href="views/styles.css" />
-    <script src="views-scripts/home-display.js" defer></script>
+    <script src="views-scripts/register.js" defer></script>
 </head>
 
 <body>
@@ -12,10 +12,10 @@
     <div id = "greeting"></div>
     <div class = "confirmEmail">
         <h1>Confirm your Email by submitting it into the field below</h1>
-       <form action = "/register-user" method = "post">
-        <input type = "email" class = "emailButton" placeholder='Enter your email'>
-        <input type = "submit" class = "emailSubmit" value = "Submit">
-      </form>
+        <form id="emailForm">
+            <input id="emailInput" type="email" class="emailButton" placeholder='Enter your email'>
+            <input id="submitBtn" type="submit" class="emailSubmit" value="Submit">
+        </form>
     </div>
 </body>
 
