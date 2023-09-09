@@ -58,6 +58,7 @@ function updateUser(email) {
   fetch('/writeUserInfo', {
     method: 'POST',
     headers: {
+      'Authorization': localStorage.token,
       'Email': email,
       'MAL_Data': JSON.stringify(mal_user_info)
     },
