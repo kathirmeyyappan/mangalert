@@ -8,10 +8,9 @@ import express from 'express';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Import the functions you need from the SDKs you need
+// import needed Firebase SDKs
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase, ref, set } from "firebase/database"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -25,7 +24,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+const db = getDatabase();
 
+// directory location initialization
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
