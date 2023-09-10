@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# app config
+app.yaml
+google-cloud-cli-445.0.0-linux-x86_64.tar.gz
+.gitignore
+.gcloudignore

@@ -45,6 +45,15 @@ app.listen(port, () => {
 import fetch from 'node-fetch';
 import path from 'path';
 
+import cors from 'cors';
+// Configure CORS to allow requests from specific origins
+const corsOptions = {
+  origin: 'https://mangalert.ue.r.appspot.com', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  exposedHeaders: '*'
+};
+app.use(cors(corsOptions));
+
 
 // generates code verfiers for accessing MAL API
 function generateCodeVerifierAndChallenge() {
@@ -272,7 +281,8 @@ app.get('/api/getUserName', async (req, res) => {
 app.post('/writeUserInfo', async (req, res) => {
   try {
     const email = req.headers.email;
-    const user_info = JSON.parse(req.headers.mal_data);
+    console.log(req.headers)
+    const user_info = JSON.parse(req.headers.maldata);
     const token = req.headers.authorization;
     await writeUserInfo(email, user_info, token);
   } catch (error) {
