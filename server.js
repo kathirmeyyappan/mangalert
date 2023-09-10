@@ -45,6 +45,7 @@ app.listen(port, () => {
 import fetch from 'node-fetch';
 import path from 'path';
 
+
 // generates code verfiers for accessing MAL API
 function generateCodeVerifierAndChallenge() {
   const verifier = generateRandomString();
@@ -56,7 +57,7 @@ function generateCodeVerifierAndChallenge() {
 function generateRandomString(strLen = 128) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
   let result = '';
-  for (let i = 0; i < 128; i++) {
+  for (let i = 0; i < strLen; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     result += characters[randomIndex];
   }
@@ -267,7 +268,7 @@ app.get('/api/getUserName', async (req, res) => {
 });
 
 
-// get user info
+// write user's relevant mal info to db
 app.post('/writeUserInfo', async (req, res) => {
   try {
     const email = req.headers.email;
@@ -279,8 +280,3 @@ app.post('/writeUserInfo', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-
-
-// write all api calls as app.get and use the get with fetch in frontend
