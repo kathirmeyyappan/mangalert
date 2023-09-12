@@ -17,6 +17,7 @@ const authorizationCode = urlSearchParams.get('code');
 
 let mal_user_info
 
+
 // get token to use in api calls and store in local storage and update user info
 fetch('/getToken', {
     method: 'GET',
@@ -38,9 +39,22 @@ fetch('/getToken', {
     })
     .then((response) => response.json())
     .then((data) => {
-      // greet user
       mal_user_info = data
-      greeting.innerText = `Hello, ${data['name']}!`;
+      // if the token doesn't work then redirect user to beginning
+      if (data.name == undefined) {
+        // redirect to home
+        fetch('/redirectToHome', {
+          method: 'GET'
+          })
+          .then((response) => {
+            console.log(response);
+            if (response.redirected) {
+              window.location.href = response.url;
+            }
+          });
+      }
+      // greet user
+      greeting.innerText = `Hello, ${mal_user_info.name}!`;
     })
   })
   .catch((error) => {
@@ -50,13 +64,14 @@ fetch('/getToken', {
   
 // send back user data to log in firebase
 function updateUser(email) {
-  console.log(JSON.stringify(mal_user_info))
-  fetch('/writeUserInfo', {
-    method: 'POST',
-    headers: {
-      'Authorization': localStorage.token,
-      'Email': email,
-      'maldata': JSON.stringify(mal_user_info)
-    },
-  })
+  if (greeting.Text != '') {
+    fetch('/writeUserInfo', {
+      method: 'POST',
+      headers: {
+        'Authorization': localStorage.token,
+        'Email': email,
+        'maldata': JSON.stringify(mal_user_info)
+      },
+    })
+  }
 }

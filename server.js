@@ -230,6 +230,12 @@ app.get('/', (req, res) => {
 });
 
 
+// send user back to login
+app.get('/redirectToHome', (req, res) => {
+  res.redirect('/?sentback=True');
+});
+
+
 // Define a callback route where the authorization code will be sent.
 app.get('/oauth', async (req, res) => {
   try {
