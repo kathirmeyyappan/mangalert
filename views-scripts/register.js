@@ -40,8 +40,9 @@ fetch('/getToken', {
     .then((response) => response.json())
     .then((data) => {
       mal_user_info = data
+      console.log(mal_user_info)
       // if the token doesn't work then redirect user to beginning
-      if (data.name == undefined) {
+      if (mal_user_info.name == undefined) {
         // redirect to home
         fetch('/redirectToHome', {
           method: 'GET'
@@ -56,6 +57,20 @@ fetch('/getToken', {
       // greet user
       greeting.innerText = `Hello, ${mal_user_info.name}!`;
     })
+    .then(() => {
+      fetch('/getMangAlertUserInfo', {
+        method: 'GET',
+        headers: {
+          'userid': mal_user_info.id
+        }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          const email = data.email;
+          emailInput.value = email;
+          console.log(email)
+        })
+    })
   })
   .catch((error) => {
     console.error('Error:', error);
@@ -69,7 +84,7 @@ function updateUser(email) {
       method: 'POST',
       headers: {
         'Authorization': localStorage.token,
-        'Email': email,
+        'email': email,
         'maldata': JSON.stringify(mal_user_info)
       },
     })
