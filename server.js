@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 
 // import needed Firebase SDKs
 import admin from 'firebase-admin';
-import { ref, set } from 'firebase/database';
+import { ref, set, get, remove } from 'firebase/database';
 
 // service account key for firebase access
 import serviceAccount from './firebase-private-key.js';
@@ -205,6 +205,21 @@ async function writeUserInfo(email, user_info, accessToken) {
 }
 
 
+// get user info to db if they've visited before
+async function getMangAlertUserInfo(user_id) {
+  // assign user path and get reference
+  const reference = ref(db, 'users/' + user_id);
+  const snapshot = await get(reference);
+
+  if (snapshot.exists()) {
+    const userData = snapshot.val();
+    return userData;
+  } else {
+    return null; 
+  }
+}
+
+
 // get code verifier and challenge for token generation
 const {codeVerifier: verifier, codeChallenge: challenge} = generateCodeVerifierAndChallenge();
 
@@ -288,6 +303,20 @@ app.post('/writeUserInfo', async (req, res) => {
     const user_info = JSON.parse(req.headers.maldata);
     const token = req.headers.authorization;
     await writeUserInfo(email, user_info, token);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+// write user's relevant mal info to db
+app.get('/getMangAlertUserInfo', async (req, res) => {
+  try {
+    const user_id = req.headers.userid;
+    console.log(user_id);
+    const userInfo = await getMangAlertUserInfo(user_id);
+    res.json(userInfo);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
