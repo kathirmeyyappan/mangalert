@@ -8,14 +8,18 @@
 </head>
 
 <body>
-    <h1 class = "banner">MAL EMAIL SERVICE</h1>
-    <div id = "greeting"></div>
-    <div class = "confirmEmail">
-        <h1>Confirm your Email by submitting it into the field below</h1>
+    <div class = "banner">
+        <h1>MangAlert</h1>
+    </div>
+    <div class = "box-container">
+        <div class="greetingText" id="greeting"></div>
         <form id="emailForm">
-            <input id="emailInput" type="email" class="emailButton" placeholder='Enter your email'>
-            <input id="submitBtn" type="submit" class="malButton" value="Submit">
+            <input id="emailInput" type="email" class="emailInput" placeholder='Enter your email'>
+            <div class = "emailButton"><input id="submitBtn" type="submit" class="malButton" value="Submit" ></div>
+            
         </form>
+        <div class="greetingSubText">Note: you may proceed with no email. This will simply opt you out of your quarterly email notifications and you will not get 
+            notified (every 3 months) when entries in your plan to read/watch list are completed.</div>
     </div>
 </body>
 

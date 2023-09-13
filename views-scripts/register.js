@@ -54,8 +54,6 @@ fetch('/getToken', {
             }
           });
       }
-      // greet user
-      greeting.innerText = `Hello, ${mal_user_info.name}!`;
     })
     .then(() => {
       fetch('/getMangAlertUserInfo', {
@@ -66,9 +64,17 @@ fetch('/getToken', {
         })
         .then((response) => response.json())
         .then((data) => {
-          const email = data.email;
-          emailInput.value = email;
-          console.log(email)
+          if (data != null) {
+            // set user's previously registered email
+            const email = data.email;
+            emailInput.value = email;
+            // greet user
+            greeting.innerHTML = `Welcome back, <b>${mal_user_info.name}</b>! Please 
+              confirm your registered email below.`;
+          } else {
+            greeting.innerHTML = `Hello, <b>${mal_user_info.name}</b>! Welcome to MangAlert! 
+              Please enter your email below.`;
+          }
         })
     })
   })

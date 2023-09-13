@@ -1,4 +1,4 @@
-@font-face {
+  @font-face {
   font-family: malLogoFont;
   src: url(mal-logo-font.ttf);
 }
@@ -11,8 +11,18 @@ body{
     align-items: center;
     text-align: center;
     color: #2e51a2;
-    font-size: 60px;
+    font-size: 30px;
+    white-space: nowrap;
+}
 
+.box-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 800px;
+  margin: 0 auto;
+  padding: 6px 0 18px;
+  box-shadow: 0 0 0 1px #2E51A2, 0 0 0 11px #E1E7F5;
 }
 
 .main-container{
@@ -22,8 +32,6 @@ body{
   align-items: center;
   margin-left:auto;
   margin-right:auto;
-  width: 1500px;
-  font-size: 25px;
 }
 
 .info {
@@ -34,30 +42,25 @@ body{
     margin-right:auto;
     justify-content: center;
     padding:30px;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .info-description {
   display: flex;
   align-items: center;
   text-align: center;
-  margin-left:auto;
-  margin-right:auto;
-  padding:15px;
-  font-size: 35px;
+  margin-left: 100px;;
+  margin-right: 100px;
 }
 
 .login {
     align-items:center;
     text-align: center;
-    padding-bottom:40px;
+    padding:20px;
+    padding-top: 40px;
 }
 
-.confirmEmail{
-    text-align: center;
-}
-
-.emailButton{
+.emailInput{
     border: 0;
     outline: 0;
     color: rgb(60, 66, 87);
@@ -67,7 +70,7 @@ body{
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    padding: 4px 8px;
+    padding: 4px 10px;
     min-height: 28px;
     vertical-align: middle;
     transition: background-color .24s,box-shadow .24s;
@@ -75,9 +78,12 @@ body{
     transition-duration: 0.24s, 0.24s;
     transition-timing-function: ease, ease;
     transition-delay: 0s, 0s;
+    width:400px;
+    height: 40px;
     :focus{
         box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(58 151 212 / 36%) 0px 0px 0px 4px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(60 66 87 / 16%) 0px 0px 0px 1px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px;
-    }
+    };
+    
 }
 
 .emailSubmit {
@@ -90,6 +96,22 @@ body{
     vertical-align: middle;
 }
 
+.emailButton {
+  padding:25px;
+  display: inline;
+}
+
+.greetingText{
+  font-size: large;
+  padding: 30px;
+}
+
+.greetingSubText {
+  font-size: small;
+  padding: 30px;
+}
+
+
 .malButton {
   background-color: #4065ba;
   border: none;
@@ -100,12 +122,11 @@ body{
   font-weight: 700;
   min-width: 160px;
   padding: 10px 12px;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
   text-align: center;
-  width:400px;
-  height: 100px;
-  font-size: 40px;
   transition: all .3s;
-
 }
 
 
