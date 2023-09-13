@@ -22,7 +22,8 @@ body{
   align-items: center;
   margin-left:auto;
   margin-right:auto;
-  font-size: 50px;
+  width: 1500px;
+  font-size: 25px;
 }
 
 .info {
@@ -33,7 +34,7 @@ body{
     margin-right:auto;
     justify-content: center;
     padding:30px;
-    font-size: 80px;
+    font-size: 40px;
 }
 
 .info-description {
@@ -42,12 +43,14 @@ body{
   text-align: center;
   margin-left:auto;
   margin-right:auto;
-  padding:30px;
+  padding:15px;
+  font-size: 35px;
 }
 
 .login {
     align-items:center;
     text-align: center;
+    padding-bottom:40px;
 }
 
 .confirmEmail{
@@ -98,9 +101,9 @@ body{
   min-width: 160px;
   padding: 10px 12px;
   text-align: center;
-  width:800px;
-  height: 200px;
-  font-size: 80px;
+  width:400px;
+  height: 100px;
+  font-size: 40px;
   transition: all .3s;
 
 }
