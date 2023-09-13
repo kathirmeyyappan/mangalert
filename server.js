@@ -9,23 +9,20 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // import needed Firebase SDKs
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database"
+import admin from 'firebase-admin';
+import { ref, set } from 'firebase/database';
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyChpRzdkhLgj6pGnhJh_TQ1csc1Weh3qBg",
-  authDomain: "mal-email-service-cc2a4.firebaseapp.com",
-  databaseURL: "https://mal-email-service-cc2a4-default-rtdb.firebaseio.com/",
-  projectId: "mal-email-service-cc2a4",
-  storageBucket: "mal-email-service-cc2a4.appspot.com",
-  messagingSenderId: "788945138134",
-  appId: "1:788945138134:web:bab92fddc797bc23c2f477"
-};
+// service account key for firebase access
+import serviceAccount from './firebase-private-key.js';
 
-// Initialize Firebase
-const firebase = initializeApp(firebaseConfig);
-const db = getDatabase();
+// firebase configuration
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://mal-email-service-cc2a4-default-rtdb.firebaseio.com'
+});
+
+// initialize firebase
+const db = admin.database();
 
 // directory location initialization
 import { dirname } from 'path';
