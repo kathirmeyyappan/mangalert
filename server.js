@@ -21,7 +21,7 @@ admin.initializeApp({
   databaseURL: 'https://mal-email-service-cc2a4-default-rtdb.firebaseio.com'
 });
 
-// Initialize Firebase
+// initialize firebase
 const db = admin.database();
 
 // directory location initialization
