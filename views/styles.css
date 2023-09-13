@@ -1,11 +1,18 @@
+@font-face {
+  font-family: 'malLogoFont';
+  src: url('views/mal-logo-font.ttf')
+  /* Add additional formats if available */
+}
+
 body{
     background-color: beige;
+    font-family: malLogoFont, sans-serif
 }
 
 .banner {
     align-items: center;
     text-align: center;
-    font-family: Verdana,Arial;
+    font-family:  Verdana,Arial;
     color: #2e51a2;
 
 }
@@ -13,7 +20,7 @@ body{
 .info {
     align-items: center;
     text-align: center;
-    font-family: Verdana,Arial;;
+    font-family: malLogoFont;
 }
 
 .login {
@@ -58,7 +65,7 @@ body{
     vertical-align: middle;
 }
 
-.button-58 {
+.SignInButton {
   align-items: center;
   background-color: #06f;
   border: 2px solid #06f;
