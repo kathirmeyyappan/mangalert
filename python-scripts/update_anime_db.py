@@ -11,7 +11,6 @@ cred = credentials.Certificate("firebase-private-key.json")
 firebase_admin.initialize_app(cred)
 ref = db.reference("anime/", url='https://mal-email-service-cc2a4-default-rtdb.firebaseio.com')
 
-
 # Load .env file and get MAL client id
 load_dotenv()
 client_id = os.getenv("CLIENT_ID")
