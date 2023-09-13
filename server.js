@@ -45,6 +45,16 @@ app.listen(port, () => {
 import fetch from 'node-fetch';
 import path from 'path';
 
+import cors from 'cors';
+// Configure CORS to allow requests from specific origins
+const corsOptions = {
+  origin: 'https://mangalert.ue.r.appspot.com', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  exposedHeaders: '*'
+};
+app.use(cors(corsOptions));
+
+
 // generates code verfiers for accessing MAL API
 function generateCodeVerifierAndChallenge() {
   const verifier = generateRandomString();
@@ -56,7 +66,7 @@ function generateCodeVerifierAndChallenge() {
 function generateRandomString(strLen = 128) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
   let result = '';
-  for (let i = 0; i < 128; i++) {
+  for (let i = 0; i < strLen; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     result += characters[randomIndex];
   }
@@ -123,15 +133,77 @@ async function getUserName(accessToken) {
   }
 }
 
+
+// get planned anime for user
+async function getPlannedAnime(accessToken) {
+  // base url for getting ptw
+  const baseUrl = 'https://api.myanimelist.net/v2/users/@me/animelist';
+  const queryParams = {
+    status: 'plan_to_watch',
+    limit: 1000,
+  };
+  const apiUrl = `${baseUrl}?${new URLSearchParams(queryParams)}`;
+
+  // add authorization
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
+  
+  // fetch id's planned anime and return all
+  try {
+    const response = await fetch(apiUrl, { headers });
+    const response_json = await response.json();
+    const plannedAnime = response_json.data.map(entry => entry.node.id);
+    return plannedAnime
+  } catch (error) {
+    console.error('Error making API call:', error);
+    throw error;
+  }
+}
+
+
+// get planned manga for user
+async function getPlannedManga(accessToken) {
+  // base url for getting ptr
+  const baseUrl = 'https://api.myanimelist.net/v2/users/@me/mangalist';
+  const queryParams = {
+    status: 'plan_to_read',
+    limit: 1000,
+  };
+  const apiUrl = `${baseUrl}?${new URLSearchParams(queryParams)}`;
+
+  // add authorization
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
+  
+  // fetch id's planned anime and return all
+  try {
+    const response = await fetch(apiUrl, { headers });
+    const response_json = await response.json();
+    const plannedManga = response_json.data.map(entry => entry.node.id);
+    return plannedManga
+  } catch (error) {
+    console.error('Error making API call:', error);
+    throw error;
+  }
+}
+
+
 // (re)write user info to db
-function writeUserInfo(email, user_info) {
+async function writeUserInfo(email, user_info, accessToken) {
   // assign user path
   const reference = ref(db, 'users/' + user_info['id']);
-  
+
+  const plannedAnime = await getPlannedAnime(accessToken)
+  const plannedManga = await getPlannedManga(accessToken)
+
   // write all data to db
   set(reference, {
     user_info: user_info,
-    email: email
+    email: email,
+    anime: plannedAnime,
+    manga: plannedManga
   });
 }
 
@@ -155,6 +227,12 @@ app.get('/api/userLogin', async (req, res) => {
 // base page to greet user and prompt login
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
+
+// send user back to login
+app.get('/redirectToHome', (req, res) => {
+  res.redirect('/?sentback=True');
 });
 
 
@@ -205,19 +283,16 @@ app.get('/api/getUserName', async (req, res) => {
 });
 
 
-// get user info
+// write user's relevant mal info to db
 app.post('/writeUserInfo', async (req, res) => {
   try {
-    const email = req.headers.email
-    const user_info = JSON.parse(req.headers.mal_data)
-    writeUserInfo(email, user_info)
+    const email = req.headers.email;
+    console.log(req.headers)
+    const user_info = JSON.parse(req.headers.maldata);
+    const token = req.headers.authorization;
+    await writeUserInfo(email, user_info, token);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-
-
-// write all api calls as app.get and use the get with fetch in frontend
