@@ -11,7 +11,7 @@ fetch('/api/userLogin', {
 
     login.innerHTML = `
     <a href="${data.loginURL}">
-      <button class="SignInButton" role="button">Sign-In/Register</button>
+      <button class="malButton" role="button">Sign-In/Register</button>
     </a>
     `;
   })
