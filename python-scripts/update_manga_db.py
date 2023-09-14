@@ -11,6 +11,8 @@ cred = credentials.Certificate("firebase-private-key.json")
 firebase_admin.initialize_app(cred)
 ref = db.reference("manga/", url='https://mal-email-service-cc2a4-default-rtdb.firebaseio.com')
 
+ref.delete()
+
 # Load .env file and get MAL client id
 load_dotenv()
 client_id = os.getenv("CLIENT_ID")
@@ -21,7 +23,7 @@ base_url = "https://api.myanimelist.net/v2/manga/ranking"
 payload = {'ranking_type': 'all',
            'limit': 500,
            'offset': 0,
-           'fields': 'id,status'}
+           'fields': 'id, status, end_date'}
 response = requests.get(base_url, headers=auth, params=payload).json()
 
 while 'next' in response['paging']:
@@ -34,9 +36,10 @@ while 'next' in response['paging']:
         # construct data to put into db
         updated_entries[manga['id']] = {
             'url' : f"https://myanimelist.net/manga/{manga['id']}/",
-            'name' : manga.get('title', None),
-            'img_url' : manga.get('main_picture', {}).get('medium', None),
-            'status' : manga.get('status', None)
+            'name' : manga.get('title', ''),
+            'img_url' : manga.get('main_picture', {}).get('medium', ''),
+            'status' : manga.get('status', ''),
+            'completed_date' : manga.get('end_date', '')
         }
     
     # add batch of manga with updated info to db
