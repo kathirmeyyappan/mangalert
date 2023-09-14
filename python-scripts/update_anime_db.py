@@ -21,7 +21,7 @@ base_url = "https://api.myanimelist.net/v2/anime/ranking"
 payload = {'ranking_type': 'all',
            'limit': 500,
            'offset': 0,
-           'fields': 'id,status'}
+           'fields': 'id, status, end_date'}
 response = requests.get(base_url, headers=auth, params=payload).json()
 
 while 'next' in response['paging']:
@@ -34,9 +34,10 @@ while 'next' in response['paging']:
         # construct data to put into db
         updated_entries[anime['id']] = {
             'url' : f"https://myanimelist.net/anime/{anime['id']}/",
-            'name' : anime.get('title', None),
-            'img_url' : anime.get('main_picture', {}).get('medium', None),
-            'status' : anime.get('status', None)
+            'name' : anime.get('title', ''),
+            'img_url' : anime.get('main_picture', {}).get('medium', ''),
+            'status' : anime.get('status', ''),
+            'completed_date' : anime.get('end_date', '')
         }
     
     # add batch of anime with updated info to db

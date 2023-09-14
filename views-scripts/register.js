@@ -3,14 +3,6 @@ let submitBtn = document.getElementById('submitBtn');
 let emailInput = document.getElementById('emailInput');
 let emailForm = document.getElementById('emailForm');
 
-
-emailForm.addEventListener('submit', function (event) {
-  // prevent default form submission behavior
-  event.preventDefault();
-
-  updateUser(emailInput.value)
-});
-
 const currentURL = window.location.href;
 const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
 const authorizationCode = urlSearchParams.get('code');
@@ -81,6 +73,19 @@ fetch('/getToken', {
   .catch((error) => {
     console.error('Error:', error);
   });
+
+
+emailForm.addEventListener('submit', function (event) {
+  // prevent default form submission behavior
+  event.preventDefault();
+  
+  // update userData
+  updateUser(emailInput.value)
+
+  // redirect to user data page
+  const userId = mal_user_info.id
+  window.location.href = `/users/${userId}`
+});
 
   
 // send back user data to log in firebase
