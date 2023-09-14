@@ -145,9 +145,9 @@ app.get('/getMangAlertUserInfo', async (req, res) => {
 
 
 // retrieve and return user's planned anime that are complete (stratified by recency)
-app.get('/getFinishedPlannedAnime/:userid', async (req, res) => {
+app.get('/getFinishedPlannedAnime', async (req, res) => {
   try {
-    const user_id = req.params.userid;
+    const user_id = req.headers.userid;
     const plannedFinishedAnime = await getFinishedPlannedAnime(user_id);
     res.json(plannedFinishedAnime);
   } catch (error) {
@@ -158,9 +158,9 @@ app.get('/getFinishedPlannedAnime/:userid', async (req, res) => {
 
 
 // retrieve and return user's planned manga that are complete (stratified by recency)
-app.get('/getFinishedPlannedManga/:userid', async (req, res) => {
+app.get('/getFinishedPlannedManga', async (req, res) => {
   try {
-    const user_id = req.params.userid;
+    const user_id = req.headers.userid;
     const plannedFinishedManga = await getFinishedPlannedManga(user_id);
     res.json(plannedFinishedManga);
   } catch (error) {
