@@ -1,0 +1,98 @@
+.banner {
+  align-items: center;
+  text-align: center;
+  color: #2e51a2;
+  font-size: 30px;
+  white-space: nowrap;
+}
+
+.Category {
+  font-family: Verdana, Arial;
+  font-size: 20px;
+  font-weight:400;
+  text-align: center;
+  padding: 6px;
+  color: #2e51a2;
+}
+
+.Header{
+  background-color: #2e51a2;
+  border: 1px solid #2e51a2;
+  color: #fff;
+  font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.0em;
+  margin: 0 0 15px;
+  padding: 6px 0;
+  text-align: center;
+  width: 100%;
+}
+.animeTitle{
+  display: table-cell;
+  height: 60px;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  width: 334px;
+  background-color: rgb(194, 191, 191);
+}
+.animeLink{
+  border-style: none;
+  -webkit-box-orient: vertical;
+  color: #1c439b;
+  display: -webkit-box;
+  font-size: 14px;
+  -webkit-line-clamp: 2;
+  line-height: 16px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 0 1px;
+}
+
+.titleText{
+  font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+  margin: 0 auto;
+  width: 280px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(334px, 1fr));
+  gap: 16px; /* Gap between grid items */
+  justify-items: center;
+  align-items: center;
+}
+
+.Card{
+  border: #f0f0f0 1px solid;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+  height: 370px;
+  margin: 0 0 20px;
+  overflow: hidden;
+  position: relative;
+  width: 334px;
+  text-align: center;
+  justify-content: center;
+}
+
+.Image{
+  display:flex;
+  background-color: #f8f8f8;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 231px;
+  text-align: center;
+  image-rendering: optimizeQuality;
+  width:167px;
+  padding: 15px;
+}
+
+.rounded-image{
+  border-radius: 15%;
+}
