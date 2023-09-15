@@ -41,11 +41,6 @@ import { generateCodeVerifierAndChallenge }
 // get code verifier and challenge for token generation
 const {codeVerifier: verifier, codeChallenge: challenge} = generateCodeVerifierAndChallenge();
 
-// set content-types
-app.get('/static/js/*', (req, res) => {
-  res.setHeader('Content-Type', 'application/javascript');
-});
-
 
 // base page to greet user and prompt login
 app.get('/', (req, res) => {
