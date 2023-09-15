@@ -17,6 +17,9 @@ const __dirname = dirname(__filename)
 // serve static files from the specified directories
 app.use('/views-scripts', express.static(path.join(__dirname, 'views-scripts')));
 app.use('/views', express.static(path.join(__dirname, 'views')));
+// Serve static files from the 'build' directory
+app.use('/build', express.static(path.join(__dirname, 'animanga-list', 'build')));
+app.use('/static', express.static(path.join(__dirname, 'animanga-list', 'build', 'static')));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
@@ -27,7 +30,7 @@ import fetch from 'node-fetch';
 import path from 'path';
 
 // import needed functions from other files
-import { writeUserInfo, getMangAlertUserInfo, getFinishedPlannedAnime, getFinishedPlannedManga } 
+import { writeUserInfo, getMangAlertUserInfo, getFinishedPlannedAnime, getFinishedPlannedManga, removeUser } 
   from './server-functions/firebase-functions.js';
 import { getUserName, generateNewToken, getUserAuthURL } 
   from './server-functions/mal-functions.js'
@@ -53,7 +56,7 @@ app.get('/register', (req, res) => {
 
 // Define a route that captures the user ID as a route parameter
 app.get('/users/:userId', (req, res) => {
-  // change this later to the react path
+  res.sendFile(path.join(__dirname, 'animanga-list', 'build', 'index.html'));
 });
 
 
@@ -120,7 +123,6 @@ app.get('/api/getUserName', async (req, res) => {
 app.post('/writeUserInfo', async (req, res) => {
   try {
     const email = req.headers.email;
-    console.log(req.headers)
     const user_info = JSON.parse(req.headers.maldata);
     const token = req.headers.authorization;
     await writeUserInfo(email, user_info, token);
@@ -146,8 +148,9 @@ app.get('/getMangAlertUserInfo', async (req, res) => {
 
 // retrieve and return user's planned anime that are complete (stratified by recency)
 app.get('/getFinishedPlannedAnime', async (req, res) => {
-  try {
-    const user_id = req.headers.userid;
+  try {    
+    const params = req.headers.referer.split('/');
+    const user_id = params[params.length - 1];
     const plannedFinishedAnime = await getFinishedPlannedAnime(user_id);
     res.json(plannedFinishedAnime);
   } catch (error) {
@@ -160,7 +163,8 @@ app.get('/getFinishedPlannedAnime', async (req, res) => {
 // retrieve and return user's planned manga that are complete (stratified by recency)
 app.get('/getFinishedPlannedManga', async (req, res) => {
   try {
-    const user_id = req.headers.userid;
+    const params = req.headers.referer.split('/');
+    const user_id = params[params.length - 1];
     const plannedFinishedManga = await getFinishedPlannedManga(user_id);
     res.json(plannedFinishedManga);
   } catch (error) {

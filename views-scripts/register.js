@@ -83,8 +83,10 @@ emailForm.addEventListener('submit', function (event) {
   updateUser(emailInput.value)
 
   // redirect to user data page
-  const userId = mal_user_info.id
-  window.location.href = `/users/${userId}`
+  setTimeout(async () => {
+    const userId = mal_user_info.id
+    window.location.href = `/users/${userId}`
+  }, 2000);
 });
 
   
