@@ -57,7 +57,10 @@ export async function getFinishedPlannedAnime(user_id) {
   const userRef = ref(db, 'users/' + user_id);
   const userSnap = await get(userRef);
   const userData = userSnap.val()
-  const plannedAnime = userData.anime
+  let plannedAnime = userData.anime
+  if (plannedAnime == undefined) {
+    plannedAnime = [];
+  }
 
   // arrays to hold anime of each type
   const recent = [];
@@ -105,7 +108,10 @@ export async function getFinishedPlannedManga(user_id) {
   const userRef = ref(db, 'users/' + user_id);
   const userSnap = await get(userRef);
   const userData = userSnap.val()
-  const plannedManga = userData.manga
+  let plannedManga = userData.manga
+  if (plannedManga == undefined) {
+    plannedManga = [];
+  }
 
   // arrays to hold manga of each type
   const recent = [];
@@ -118,7 +124,7 @@ export async function getFinishedPlannedManga(user_id) {
     const mangaSnap = await get(mangaRef)
     const manga = mangaSnap.val()
 
-    if (manga.status == "finished_airing") {
+    if (manga.status == "finished") {
       if (manga.completed_date == "") {
         other.push(manga)
         return;
@@ -146,4 +152,6 @@ export async function getFinishedPlannedManga(user_id) {
   };
 }
 
-
+export async function removeUser(id) {
+  remove(ref(db, `users/${id}`));
+}
