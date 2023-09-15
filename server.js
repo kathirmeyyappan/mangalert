@@ -62,7 +62,7 @@ app.get('/users/:userId', (req, res) => {
 
 // send user back to login
 app.get('/redirectToHome', (req, res) => {
-  res.redirect('/?sentback=True');
+  res.redirect('/?redirected=true');
 });
 
 

@@ -1,4 +1,12 @@
 let login = document.getElementById('login');
+let errorMsg = document.getElementById('errorMsg');
+
+const currentURL = window.location.href;
+const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+
+if (urlSearchParams.get('redirected')) {
+  errorMsg.innerHTML = "<p style='color:#db0b0b; font-size:12px'>Something went wrong. Please sign in again.</p>"
+}
 
 // use this format to make calls to backend (once you've made the express.get in there)
 fetch('/api/userLogin', {
@@ -11,7 +19,7 @@ fetch('/api/userLogin', {
 
     login.innerHTML = `
     <a href="${data.loginURL}">
-      <button class="malButton" role="button">Sign-In/Register</button>
+      <button class="malButton" role="button">Sign-in / Register</button>
     </a>
     `;
   })

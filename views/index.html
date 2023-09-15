@@ -2,27 +2,31 @@
 <html>
 
 <head>
-    <title>MangAlert</title>
+    <title>MangAlert!</title>
     <link rel="stylesheet" type="text/css" href="/views/styles.css" />
     <link rel="icon" href = "views/sty"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/views-scripts/index-script.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="/views/mangalert_icon.ico">
 </head>
 
 <body>
       <div class = "banner">
-        <h1>Welcome to MangAlert</h1>
+        <h1>Welcome to MangAlert!</h1>
       </div>
       <div class = "box-container">
         <div class = "main-container">
-          <div class = "info"><b>What is this service?</b></div>
+          <img class="indexImg" src="views/gintama.gif"><img>
+          <div class = "info"><b>What is MangAlert?</b></div>
           <div class = "info-description">
-            The goal of this service is to periodically notify the user whenever
-            an anime/manga on their MAL plan-to-read or plan-to-watch list is finished.
-            Helping those who prefer to binge rather than consume chapter by chapter.
+            <p>The goal of this service is to periodically notify the user (by email) whenever an anime/manga on 
+            their <a href=https://myanimelist.net>MyAnimeList</a> plan-to-read or plan-to-watch list has finished 
+            airing/serializing. The user (once logged in) can also view all of their planned entries which have 
+            ended. If you like to binge your media, this is for you!</p>
           </div>
         </div>
         <div id="login" class = "login"></div>
+        <div id="errorMsg"></div>
       </div>
     
 </body>

@@ -17,7 +17,7 @@ function Card(props: CardProps){
                 </div>
             </div>
             <div className = "Image">
-                <img className = "rounded-image" src={imageURL} ></img>
+                <img className="entry-image" src={imageURL} alt="completed entry"></img>
             </div>
         </div>
     )

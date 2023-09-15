@@ -2,6 +2,7 @@ let greeting = document.getElementById('greeting');
 let submitBtn = document.getElementById('submitBtn');
 let emailInput = document.getElementById('emailInput');
 let emailForm = document.getElementById('emailForm');
+let profilePicture = document.getElementById('profilePicture');
 
 const currentURL = window.location.href;
 const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
@@ -46,6 +47,7 @@ fetch('/getToken', {
             }
           });
       }
+      profilePicture.src = mal_user_info.picture;
     })
     .then(() => {
       fetch('/getMangAlertUserInfo', {
@@ -101,5 +103,16 @@ function updateUser(email) {
         'maldata': JSON.stringify(mal_user_info)
       },
     })
+    .catch((error) => {
+      fetch('/redirectToHome', {
+        method: 'GET'
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.redirected) {
+            window.location.href = response.url;
+          }
+        });
+    });
   }
 }

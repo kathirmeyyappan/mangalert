@@ -86,13 +86,14 @@
   background-position-x: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 231px;
   text-align: center;
-  image-rendering: optimizeQuality;
   width:167px;
   padding: 15px;
 }
 
-.rounded-image{
-  border-radius: 15%;
+.entry-image{
+  border-radius: 5%;
+  width:167px;
+  height: 231px;
+  image-rendering: optimizeQuality;
 }
