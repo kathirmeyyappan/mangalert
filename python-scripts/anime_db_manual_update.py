@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import firebase_admin
 from firebase_admin import credentials, db
+from datetime import datetime, timedelta
 
 
 # get firebase connection
@@ -19,11 +20,12 @@ client_id = os.getenv("CLIENT_ID")
 auth = {'X-MAL-CLIENT-ID' : client_id}
 base_url = "https://api.myanimelist.net/v2/anime/ranking"
 payload = {'ranking_type': 'all',
-           'limit': 500,
-           'offset': 0,
-           'fields': 'id, status, end_date'}
+        'limit': 500,
+        'offset': 0,
+        'fields': 'id, status, end_date'}
 response = requests.get(base_url, headers=auth, params=payload).json()
 
+i = 0
 while 'next' in response['paging']:
     time.sleep(0.1)
     
@@ -42,10 +44,10 @@ while 'next' in response['paging']:
     
     # add batch of anime with updated info to db
     ref.update(updated_entries)
-    print([id for id in updated_entries.keys()])
+    
+    # mark progress
+    print(f"entries {500 * i} - {500 * (i + 1)} fetched")
+    i += 1
     
     # get next batch of 500 entries with pagination
-    try:
-        response = requests.get(response['paging']['next'], headers=auth).json()
-    except KeyError as e:
-        print(f"Key Error: {e}")
+    response = requests.get(response['paging']['next'], headers=auth).json()
