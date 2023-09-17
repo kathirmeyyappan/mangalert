@@ -73,7 +73,7 @@ export async function getFinishedPlannedAnime(user_id) {
     const animeSnap = await get(animeRef)
     const anime = animeSnap.val()
 
-    if (anime.status == "finished_airing") {
+    if (anime != null && anime.status == "finished_airing") {
       if (anime.completed_date == "") {
         other.push(anime)
         return;
@@ -124,7 +124,7 @@ export async function getFinishedPlannedManga(user_id) {
     const mangaSnap = await get(mangaRef)
     const manga = mangaSnap.val()
 
-    if (manga.status == "finished") {
+    if (manga != null && manga.status == "finished") {
       if (manga.completed_date == "") {
         other.push(manga)
         return;
