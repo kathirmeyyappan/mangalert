@@ -18,14 +18,18 @@ anime_ref = db.reference(f"anime/", url='https://mal-email-service-cc2a4-default
 manga_ref = db.reference(f"manga/", url='https://mal-email-service-cc2a4-default-rtdb.firebaseio.com')
 all_anime, all_manga = anime_ref.get(), manga_ref.get()
 
-# define function for taking anime or manga id and returning html for the entry
+# function for taking anime or manga id and returning img html for the entry
 #   if it ended recently
-def finished_media(media_type, id):
+def finished_media_image(media_type, id):
     # get correct dict from media type
     if media_type == "anime":
         entry = all_anime[id]
     elif media_type == "manga":
         entry = all_manga[id]
+    
+    # entries that haven't ended
+    if not (entry["status"] == "finished_airing" or entry["status"] == "finished"):
+        return ""
     
     # get and compare dates
     completed_date_string = entry.get("completed_date", "")
@@ -41,12 +45,35 @@ def finished_media(media_type, id):
         """
     return ""
 
+# function for taking anime or manga id and returning title if it ended recently
+def finished_media_title(media_type, id):
+    # get correct dict from media type
+    if media_type == "anime":
+        entry = all_anime[id]
+    elif media_type == "manga":
+        entry = all_manga[id]
+    
+    # entries that haven't ended
+    if not (entry["status"] == "finished_airing" or entry["status"] == "finished"):
+        return ""
+    
+    # get and compare dates
+    completed_date_string = entry.get("completed_date", "")
+    if completed_date_string == "" or not(completed_date_string.count("-") == 2):
+        return ""
+    completed_date = datetime.strptime(completed_date_string, "%Y-%m-%d").date()
+    three_months_ago = datetime.now() - timedelta(days=90)
+    if completed_date > three_months_ago.date():
+        return entry["name"]
+    return ""
+
 # get email sending information
 smtp_server = "smtp.gmail.com"
 port = 465
 sender_email = "ujigintokibowl@gmail.com"
 load_dotenv()
 password = os.getenv("MANGALERT_APP_PASSWORD")
+my_email = os.getenv("MY_EMAIL")
 ssl_context = ssl.create_default_context()
 
 with smtplib.SMTP_SSL(smtp_server, port, context=ssl_context) as server:    
@@ -56,8 +83,8 @@ with smtplib.SMTP_SSL(smtp_server, port, context=ssl_context) as server:
     # go through all users and send email for each
     for user_id, user in mangalert_users.items():
         
-        # skip user if no email given
-        if user["email"] == "":
+        # skip user if no email given (and whatever other condition to filter and check for bugs)
+        if user["email"] == "" or user["email"] not in ["kathirmey@gmail.com", "sudarmey@gmail.com", "manojbhagwat123@gmail.com"]:
             continue
         
         # initialize message
@@ -68,31 +95,54 @@ with smtplib.SMTP_SSL(smtp_server, port, context=ssl_context) as server:
         message["To"] = user["email"]
         message["Subject"] = f"MangAlert: {user['user_info']['name']}, Anime/Manga have finished airing! ({date.today()})"
         
-        # construct completed media html
+        # construct completed media html with anime and manga data
         completed_media = ""
         if "anime" in user:
             completed_media += """
             <h2>PLANNED ANIME THAT HAVE RECENTLY ENDED:</h2>
-            <br>
             """
+            anime_titles = anime_images = ""
             for anime_id in user["anime"]:
-                completed_media += finished_media("anime", str(anime_id))
+                anime_title = finished_media_title("anime", str(anime_id))
+                if anime_title != "":
+                    anime_titles += anime_title + ", "
+            if anime_titles == "":
+                anime_titles = "None in the last 3 months!  "
+            for anime_id in user["anime"]:
+                anime_images += finished_media_image("anime", str(anime_id))
+            completed_media += f"""
+            <h3>{anime_titles[:-2]}</h3>
+            <br>
+            {anime_images}
+            """        
         if "manga" in user:
             completed_media += """<br><br>
             <h2>PLANNED MANGA THAT HAVE RECENTLY ENDED:</h2>
-            <br>
             """
+            manga_titles = manga_images = ""
             for manga_id in user["manga"]:
-                completed_media += finished_media("manga", str(manga_id))
+                manga_title = finished_media_title("manga", str(manga_id))
+                if manga_title != "":
+                    manga_titles += manga_title + ", "
+            if manga_titles == "":
+                manga_titles = "None in the last 3 months!  "
+            for manga_id in user["manga"]:
+                manga_images += finished_media_image("manga", str(manga_id))
+            completed_media += f"""
+            <h3>{manga_titles[:-2]}</h3>
+            <br>
+            {manga_images}
+            """
         
         # construct email content
         email_content = f"""
         <html>
             <head><h1>MangAlert Monthly Notification</h1></head>
             <body>
-                <h3>Hey there! It's MangAlert (Uji_Gintoki_Bowl on MAL for inquiries). 
-                Here are the anime and manga in your plan-to-watch/plan-to-read that 
-                have completed serialization within the last 3 months. Enjoy!</h3>
+                <h3>Hey there! It's MangAlert (Uji_Gintoki_Bowl on MAL for inquiries).
+                <br>
+                Here are the planned anime and manga in your list that have 
+                completed serialization within the last 3 months. Enjoy!</h3>
                 <br>
                 {completed_media}
                 <br><br>
@@ -110,5 +160,7 @@ with smtplib.SMTP_SSL(smtp_server, port, context=ssl_context) as server:
         message.attach(MIMEText(email_content, "html"))        
 
         # send email to user
-        server.sendmail(sender_email, "kathirmey@gmail.com", message.as_string())
+        server.sendmail(sender_email, my_email, message.as_string())
         print(f"Email sent to {user['user_info']['name']} successfully")
+
+print("done")
