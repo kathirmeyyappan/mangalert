@@ -51,3 +51,5 @@ while 'next' in response['paging']:
     
     # get next batch of 500 entries with pagination
     response = requests.get(response['paging']['next'], headers=auth).json()
+    
+print("done")

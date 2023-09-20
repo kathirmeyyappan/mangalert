@@ -58,6 +58,7 @@ def update_anime_db(request):
     # custom tag to make sure function ran in firebase
     ref.update({'function-deploy' : str(datetime.now())})
     
+    print("function executed successfully")
     return "function executed successfully"
 
 
@@ -67,7 +68,7 @@ def update_manga_db(request):
     cred = credentials.Certificate("firebase-private-key.json")
     firebase_admin.initialize_app(cred)
     ref = db.reference("manga/", url='https://mal-email-service-cc2a4-default-rtdb.firebaseio.com')
-    
+
     # Load .env file and get MAL client id
     load_dotenv()
     client_id = os.getenv("CLIENT_ID")
@@ -111,4 +112,5 @@ def update_manga_db(request):
     # custom tag to make sure function ran in firebase
     ref.update({'function-deploy' : str(datetime.now())})
     
+    print("function executed successfully")
     return "function executed successfully"
