@@ -302,6 +302,7 @@ cython_debug/
 
 
 
-### OTHER ###
+### OTHER THINGS I'M TRYNA HIDE ###
 firebase-private-key.js
 firebase-private-key.json
+*.yaml
