@@ -1,6 +1,6 @@
 # [MangAlert!](https://www.mangalert.com)
 MangAlert is an email service that alerts users when followed manga/anime serializations have come to an end. Users can also view entries in their plan-to-watch and plan-to-read list that have finished serialization, stratified by recent/old completion.
-<br><br>
+<br>
 <div align="center">
     <img src="https://github.com/kathirmeyyappan/mangalert/assets/71161498/7e174084-dd4f-4a88-950c-6d64b3977f6b">
 </div>
