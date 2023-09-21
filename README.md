@@ -6,7 +6,7 @@ MangAlert is an email service that alerts users when followed manga/anime serial
 </div>
 <sub>Note: Users must have a MyAnimeList account to register.</sub>
 
-## Completed Media View
+## Completed Media View (work in progress)
 After registering (or logging in to force a user data update), users can view the completed entries in their MAL plan-to-watch and plan-to-read lists. The data is stratified such that entries that have finished serialization in the last 3 months show up in a different section. As this service is useless without a MyAnimeList account, I recommend you try that out! 
 
 To see what a user view may look like, I have linked some (anonymous) MangAlert user profiles below:
