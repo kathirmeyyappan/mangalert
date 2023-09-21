@@ -18,7 +18,7 @@ To see what a user view may look like, I have linked some (anonymous) MangAlert 
 ## Email Notifications
 Granted that the user provides their email upon registration (and does not remove it upon each following login), MangAlert will send monthly emails regarding completed entries from the user's list in the past 3 months. An example of one such email is shown below.
 <div align="center">
-  <img src="https://github.com/kathirmeyyappan/mangalert/assets/71161498/e15db572-3bc8-4e24-a103-a04d3c762a98">
+  <img src="https://github.com/kathirmeyyappan/mangalert/assets/71161498/76bd7c6b-e866-4d92-a7ad-3458edefc956">
 </div>
 
 ## Tested Browsers
