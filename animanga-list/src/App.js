@@ -6,7 +6,7 @@ function App({ anime, manga }) {
   return (
     <div className="App">
       <div className = "banner">
-        <h1>MangAlert!</h1>
+        <a href = "/" style={"text-decoration:none"}><h1>MangAlert!</h1></a>
       </div>
       <div className='intro-message'>
         Thank you for visiting MangAlert! If you prefer binging to consuming content weekly, 

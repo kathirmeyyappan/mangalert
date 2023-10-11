@@ -143,7 +143,7 @@
 }
 
 .footer {
-  background-color: #1c439b; /* Background color of the footer */
+  background-color: #333; /* Background color of the footer */
   color: white; /* Text color */
   padding: 20px 0; /* Padding at the top and bottom */
   text-align: center; /* Center-align text */
