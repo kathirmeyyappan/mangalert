@@ -169,3 +169,24 @@ body{
   width: 180px;
   padding-top: 35px;
 }
+
+.completeDate{
+  justify-content: center;
+  align-items: center;
+  font-size: 16;
+  opacity: 0; /* Initially, the text is hidden */
+  transition: opacity 0.5s ease-in-out; /* Add a transition effect to the text */
+}
+
+.footer {
+  background-color: #1c439b; /* Background color of the footer */
+  color: white; /* Text color */
+  padding: 20px 0; /* Padding at the top and bottom */
+  text-align: center; /* Center-align text */
+}
+
+.footer a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+  margin: 0 10px; /* Add some spacing between links */
+}

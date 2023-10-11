@@ -20,9 +20,9 @@
   border: 1px solid #2e51a2;
   color: #fff;
   font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
-  font-size: 14px;
+  font-size: 20 px;
   font-weight: 400;
-  line-height: 1.0em;
+  line-height: 2.0em;
   margin: 0 0 15px;
   padding: 6px 0;
   text-align: center;
@@ -43,7 +43,8 @@
   -webkit-box-orient: vertical;
   color: #1c439b;
   display: -webkit-box;
-  font-size: 14px;
+  font-size: 16px;
+  text-decoration: none;
   -webkit-line-clamp: 2;
   line-height: 16px;
   margin: 0;
@@ -64,7 +65,6 @@
   justify-items: center;
   align-items: center;
 }
-
 .Card{
   border: #f0f0f0 1px solid;
   display: flex;
@@ -78,6 +78,25 @@
   width: 334px;
   text-align: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+
+.Card.visible{
+  border: #f0f0f0 1px solid;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+  height: 370px;
+  margin: 0 0 20px;
+  overflow: hidden;
+  position: relative;
+  width: 334px;
+  text-align: center;
+  justify-content: center;
+  opacity: 1;
 }
 
 .Image{
@@ -91,9 +110,47 @@
   padding: 15px;
 }
 
+.Image:hover .entry-image{
+  filter: grayscale(100%) brightness(80%)
+}
+
+.Image:hover .completeDate{
+  opacity: 1;
+}
+
 .entry-image{
   border-radius: 5%;
   width:167px;
   height: 231px;
   image-rendering: optimizeQuality;
+  transition: filter 0.5s ease-in-out; /* Add a transition effect to the filter property */
+}
+.intro-message{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 80px;;
+  margin-right: 80px;
+  font-size: 15px;
+}
+
+.completeDate{
+  justify-content: center;
+  align-items: center;
+  font-size: 16;
+  opacity: 0; /* Initially, the text is hidden */
+  transition: opacity 0.5s ease-in-out; /* Add a transition effect to the text */
+}
+
+.footer {
+  background-color: #1c439b; /* Background color of the footer */
+  color: white; /* Text color */
+  padding: 20px 0; /* Padding at the top and bottom */
+  text-align: center; /* Center-align text */
+}
+
+.footer a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+  margin: 0 10px; /* Add some spacing between links */
 }

@@ -20,7 +20,8 @@ function App({ anime, manga }) {
         {manga.recently_completed.map((item) => (
           <Card animeName={item.name} 
           imageURL={item.img_url}
-          animeURL={item.url}></Card>
+          animeURL={item.url}
+          completeDate={item.completed_date}></Card>
         ))}
       </div>
       <div className='Header'>Anime (Plan to Watch)</div>
@@ -28,7 +29,8 @@ function App({ anime, manga }) {
         {anime.recently_completed.map((item) => (
           <Card animeName={item.name} 
           imageURL={item.img_url}
-          animeURL={item.url}></Card>
+          animeURL={item.url}
+          completeDate={item.completed_date}></Card>
         ))}
       </div>
       <div className='Category'><h2>Finished Serialization (Older Than 3 Months)</h2></div>
@@ -37,7 +39,8 @@ function App({ anime, manga }) {
         {manga.other_completed.map((item) => (
           <Card animeName={item.name} 
           imageURL={item.img_url}
-          animeURL={item.url}></Card>
+          animeURL={item.url}
+          completeDate={item.completed_date}></Card>
         ))}
       </div>
       <div className='Header'>Anime (Plan to Watch)</div>
@@ -45,9 +48,12 @@ function App({ anime, manga }) {
         {anime.other_completed.map((item) => (
           <Card animeName={item.name} 
           imageURL={item.img_url}
-          animeURL={item.url}></Card>
+          animeURL={item.url}
+          completeDate={item.completed_date}></Card>
         ))}
       </div>
+      <footer className='footer'><p>Created by Uji_Gintoki_Bowl and JLi2021</p>
+              <a href = "https://github.com/kathirmeyyappan/mangalert">Click here to see the code:  Github</a></footer>
     </div>
   );
 }
