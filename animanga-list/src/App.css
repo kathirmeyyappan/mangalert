@@ -154,16 +154,16 @@ a.homeLink:visited{
 }
 
 .footer {
+  padding-top: 10px;
   background-color: #F5F6F9; /* Background color of the footer */
   color: #878788; /* Text color */
-  padding: 8px 0; /* Padding at the top and bottom */
+  font-size: 11px;
   text-align: center; /* Center-align text */
 }
 
 .footer a {
   color: #878788; /* Link color */
   text-decoration: none; /* Remove underline from links */
-  margin: 0 10px; /* Add some spacing between links */
 }
 
 

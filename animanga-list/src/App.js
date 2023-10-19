@@ -54,8 +54,8 @@ function App({ anime, manga }) {
           ))}
         </div>
       </div>
-      <footer className='footer'><p>Created by Uji_Gintoki_Bowl and JLi2021</p>
-              <a href = "https://github.com/kathirmeyyappan/mangalert">Click here to see the code</a></footer>
+      <footer class="footer"><p>Created by Uji_Gintoki_Bowl and JLi2021</p>
+      <a href = "https://github.com/kathirmeyyappan/mangalert">Github</a></footer>
     </div>
   );
 }
