@@ -27,7 +27,7 @@ function Card(props: CardProps){
             <div className = "Image">
                 <a href={animeURL}>
                     <img className="entry-image" src={imageURL} alt="completed entry"></img>
-                    <div className = "completeDate">{completeDate}</div>
+                    <div className = "completeDate">Completed: {completeDate}</div>
                 </a>
                 
             </div>

@@ -4,6 +4,16 @@
   color: #2e51a2;
   font-size: 30px;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+a.homeLink{
+  text-decoration: none;
+}
+
+a.homeLink:visited{
+  text-decoration: none;
+  color: #2e51a2
 }
 
 .Category {
@@ -132,6 +142,7 @@
   margin-left: 80px;;
   margin-right: 80px;
   font-size: 15px;
+  margin-bottom: 20px
 }
 
 .completeDate{
@@ -143,14 +154,37 @@
 }
 
 .footer {
-  background-color: #333; /* Background color of the footer */
-  color: white; /* Text color */
-  padding: 20px 0; /* Padding at the top and bottom */
+  background-color: #F5F6F9; /* Background color of the footer */
+  color: #878788; /* Text color */
+  padding: 8px 0; /* Padding at the top and bottom */
   text-align: center; /* Center-align text */
 }
 
 .footer a {
-  color: white; /* Link color */
+  color: #878788; /* Link color */
   text-decoration: none; /* Remove underline from links */
   margin: 0 10px; /* Add some spacing between links */
+}
+
+
+.box-container-list{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 1000px;
+  margin: 0 auto;
+  padding: 6px 0 18px;
+  box-shadow: 0 0 0 1px #2E51A2, 0 0 0 11px #E1E7F5;
+  margin-bottom: 100px;
+}
+
+.box-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 800px;
+  margin: 0 auto;
+  padding: 6px 0 18px;
+  box-shadow: 0 0 0 1px #2E51A2, 0 0 0 11px #E1E7F5;
+  margin-bottom: 100px;
 }
