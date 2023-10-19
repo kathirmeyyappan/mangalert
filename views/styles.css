@@ -23,6 +23,7 @@ body{
   margin: 0 auto;
   padding: 6px 0 18px;
   box-shadow: 0 0 0 1px #2E51A2, 0 0 0 11px #E1E7F5;
+  margin-bottom: 100px;
 }
 
 .main-container{
@@ -168,4 +169,25 @@ body{
 .profileContainer {
   width: 180px;
   padding-top: 35px;
+}
+
+.completeDate{
+  justify-content: center;
+  align-items: center;
+  font-size: 16;
+  opacity: 0; /* Initially, the text is hidden */
+  transition: opacity 0.5s ease-in-out; /* Add a transition effect to the text */
+}
+
+.footer {
+  padding-top: 10px;
+  background-color: #F5F6F9; /* Background color of the footer */
+  color: #878788; /* Text color */
+  font-size: 11px;
+  text-align: center; /* Center-align text */
+}
+
+.footer a {
+  color: #878788; /* Link color */
+  text-decoration: none; /* Remove underline from links */
 }

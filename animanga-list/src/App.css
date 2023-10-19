@@ -4,6 +4,16 @@
   color: #2e51a2;
   font-size: 30px;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+a.homeLink{
+  text-decoration: none;
+}
+
+a.homeLink:visited{
+  text-decoration: none;
+  color: #2e51a2
 }
 
 .Category {
@@ -20,9 +30,9 @@
   border: 1px solid #2e51a2;
   color: #fff;
   font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
-  font-size: 14px;
+  font-size: 20 px;
   font-weight: 400;
-  line-height: 1.0em;
+  line-height: 2.0em;
   margin: 0 0 15px;
   padding: 6px 0;
   text-align: center;
@@ -43,7 +53,8 @@
   -webkit-box-orient: vertical;
   color: #1c439b;
   display: -webkit-box;
-  font-size: 14px;
+  font-size: 16px;
+  text-decoration: none;
   -webkit-line-clamp: 2;
   line-height: 16px;
   margin: 0;
@@ -64,7 +75,6 @@
   justify-items: center;
   align-items: center;
 }
-
 .Card{
   border: #f0f0f0 1px solid;
   display: flex;
@@ -78,6 +88,25 @@
   width: 334px;
   text-align: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+
+.Card.visible{
+  border: #f0f0f0 1px solid;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
+  height: 370px;
+  margin: 0 0 20px;
+  overflow: hidden;
+  position: relative;
+  width: 334px;
+  text-align: center;
+  justify-content: center;
+  opacity: 1;
 }
 
 .Image{
@@ -91,9 +120,71 @@
   padding: 15px;
 }
 
+.Image:hover .entry-image{
+  filter: grayscale(100%) brightness(80%)
+}
+
+.Image:hover .completeDate{
+  opacity: 1;
+}
+
 .entry-image{
   border-radius: 5%;
   width:167px;
   height: 231px;
   image-rendering: optimizeQuality;
+  transition: filter 0.5s ease-in-out; /* Add a transition effect to the filter property */
+}
+.intro-message{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 80px;;
+  margin-right: 80px;
+  font-size: 15px;
+  margin-bottom: 20px
+}
+
+.completeDate{
+  justify-content: center;
+  align-items: center;
+  font-size: 16;
+  opacity: 0; /* Initially, the text is hidden */
+  transition: opacity 0.5s ease-in-out; /* Add a transition effect to the text */
+}
+
+.footer {
+  padding-top: 10px;
+  background-color: #F5F6F9; /* Background color of the footer */
+  color: #878788; /* Text color */
+  font-size: 11px;
+  text-align: center; /* Center-align text */
+}
+
+.footer a {
+  color: #878788; /* Link color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+
+.box-container-list{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 1000px;
+  margin: 0 auto;
+  padding: 6px 0 18px;
+  box-shadow: 0 0 0 1px #2E51A2, 0 0 0 11px #E1E7F5;
+  margin-bottom: 100px;
+}
+
+.box-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 800px;
+  margin: 0 auto;
+  padding: 6px 0 18px;
+  box-shadow: 0 0 0 1px #2E51A2, 0 0 0 11px #E1E7F5;
+  margin-bottom: 100px;
 }
