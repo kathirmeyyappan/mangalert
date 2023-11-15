@@ -9,7 +9,6 @@ function App({ anime, manga }) {
   const anime_recent_num = anime.recently_completed.length
   const manga_fin_num = manga.other_completed.length
   const anime_fin_num = manga.other_completed.length
-  console.log(manga_recent_num)
 
   return (
     <div className="App">
