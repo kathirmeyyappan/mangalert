@@ -3,10 +3,25 @@ import './App.css';
 import Card from './components/Card'
 import EmptyMessage from './components/EmptyMessage';
 import SortDropdown from './components/SortDropdown';
+import LoadingScreen from './components/LoadingScreen';
 
 function App({ anime, manga }) {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [recentSortType, setRecentSortType] = React.useState('date-desc');
   const [olderSortType, setOlderSortType] = React.useState('date-desc');
+
+  React.useEffect(() => {
+    // Simulate minimum loading time of 2.5 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   const sortItems = (items, sortType) => {
     if (!items) return [];
