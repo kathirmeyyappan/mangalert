@@ -48,7 +48,7 @@ a.homeLink:hover {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--primary);
-  margin: 2rem 0 1rem;
+  margin: 1rem 0 0.5rem;
   text-align: center;
 }
 
@@ -59,19 +59,28 @@ a.homeLink:hover {
   font-size: 1.2rem;
   font-weight: 500;
   padding: 0.8rem;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1rem;
   border-radius: 8px;
   box-shadow: var(--card-shadow);
   text-align: center;
   max-width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.Header span {
+  flex: 1;
+  text-align: center;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
-  margin-bottom: 2rem;
+  gap: 1.2rem;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
   justify-items: center;
 }
 
@@ -264,22 +273,51 @@ a.homeLink:hover {
   text-align: center;
 }
 
+.sort-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  position: absolute;
+  right: 0.8rem;
+}
+
+.sort-label {
+  color: var(--text-light);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 .sort-select {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: 2px solid var(--primary);
-  border-radius: 8px;
-  background-color: white;
-  color: var(--primary);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--text-light);
+  border-radius: 4px;
+  background-color: var(--primary);
+  color: var(--text-light);
   cursor: pointer;
   transition: var(--transition);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1em;
+  padding-right: 2rem;
+}
+
+.sort-select option {
+  background-color: white;
+  color: var(--primary);
+  padding: 0.5rem;
 }
 
 .sort-select:hover {
-  background-color: var(--primary-light);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sort-select:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 }

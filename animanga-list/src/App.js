@@ -5,10 +5,11 @@ import EmptyMessage from './components/EmptyMessage';
 import SortDropdown from './components/SortDropdown';
 
 function App({ anime, manga }) {
-  const [sortType, setSortType] = React.useState('date-desc');
+  const [recentSortType, setRecentSortType] = React.useState('date-desc');
+  const [olderSortType, setOlderSortType] = React.useState('date-desc');
 
-  const sortItems = (items) => {
-    if (!items) return { recently_completed: [], other_completed: [] };
+  const sortItems = (items, sortType) => {
+    if (!items) return [];
     
     const sortedItems = [...items];
     switch (sortType) {
@@ -22,47 +23,41 @@ function App({ anime, manga }) {
         sortedItems.sort((a, b) => a.name.localeCompare(b.name));
         break;
     }
-
-    // Split into recently completed (last 3 months) and other completed
-    const now = new Date();
-    const threeMonthsAgo = new Date(now.setMonth(now.getMonth() - 3));
-    
-    return {
-      recently_completed: sortedItems.filter(item => new Date(item.completed_date) >= threeMonthsAgo),
-      other_completed: sortedItems.filter(item => new Date(item.completed_date) < threeMonthsAgo)
-    };
+    return sortedItems;
   };
 
-  const sortedAnime = sortItems(anime);
-  const sortedManga = sortItems(manga);
+  const sortedRecentAnime = sortItems(anime?.recently_completed || [], recentSortType);
+  const sortedRecentManga = sortItems(manga?.recently_completed || [], recentSortType);
+  const sortedOlderAnime = sortItems(anime?.other_completed || [], olderSortType);
+  const sortedOlderManga = sortItems(manga?.other_completed || [], olderSortType);
 
-  const manga_recent_num = sortedManga.recently_completed.length
-  const anime_recent_num = sortedAnime.recently_completed.length
-  const manga_fin_num = sortedManga.other_completed.length
-  const anime_fin_num = sortedAnime.other_completed.length
+  const manga_recent_num = sortedRecentManga.length;
+  const anime_recent_num = sortedRecentAnime.length;
+  const manga_fin_num = sortedOlderManga.length;
+  const anime_fin_num = sortedOlderAnime.length;
 
   return (
     <div className="App">
-      <div className = "banner">
-        <a className = "homeLink" href = "/" ><h1>MangAlert!</h1></a>
+      <div className="banner">
+        <a className="homeLink" href="/"><h1>MangAlert!</h1></a>
       </div>
       <div className='intro-box'>
         <div className='intro-message'>
-        Thank you for visiting MangAlert! If you prefer binging to consuming content weekly, 
-        this is great for you! Below are all of the anime and manga in your plan-to-watch 
-        and plan-to-read lists that are no longer airing/serializing. Hover over them to see when 
-        they ended. 
+          Thank you for visiting MangAlert! If you prefer binging to consuming content weekly, 
+          this is great for you! Below are all of the anime and manga in your plan-to-watch 
+          and plan-to-read lists that are no longer airing/serializing. Hover over them to see when 
+          they ended.
         </div>
       </div>
       <div className='box-container-list'>
-        <div className="sort-controls">
-          <SortDropdown onSortChange={setSortType} />
-        </div>
         <div className='Category'><h2>Finished Serialization in the Last 3 Months</h2></div>
-        <div className='Header'>Manga (Plan to Read)</div>
+        <div className='Header'>
+          <span>Manga (Plan to Read)</span>
+          <SortDropdown onSortChange={setRecentSortType} section="Recent" />
+        </div>
         {manga_recent_num == 0 ? (<EmptyMessage></EmptyMessage>)
-        :( <div className = 'grid-container'>
-        {sortedManga.recently_completed.map((item) => (
+        :( <div className='grid-container'>
+        {sortedRecentManga.map((item) => (
           <Card 
             key={item.name}
             animeName={item.name} 
@@ -72,10 +67,13 @@ function App({ anime, manga }) {
           />
         ))}
       </div>)}
-        <div className='Header'>Anime (Plan to Watch)</div>
+        <div className='Header'>
+          <span>Anime (Plan to Watch)</span>
+          <SortDropdown onSortChange={setRecentSortType} section="Recent" />
+        </div>
         {anime_recent_num == 0 ? (<EmptyMessage></EmptyMessage>)
-        :( <div className = 'grid-container'>
-        {sortedAnime.recently_completed.map((item) => (
+        :( <div className='grid-container'>
+        {sortedRecentAnime.map((item) => (
           <Card 
             key={item.name}
             animeName={item.name} 
@@ -86,10 +84,13 @@ function App({ anime, manga }) {
         ))}
       </div>)}
         <div className='Category'><h2>Finished Serialization (Older Than 3 Months)</h2></div>
-        <div className='Header'>Manga (Plan to Read)</div>
+        <div className='Header'>
+          <span>Manga (Plan to Read)</span>
+          <SortDropdown onSortChange={setOlderSortType} section="Older" />
+        </div>
         {manga_fin_num == 0 ? (<EmptyMessage></EmptyMessage>)
-        :( <div className = 'grid-container'>
-        {sortedManga.other_completed.map((item) => (
+        :( <div className='grid-container'>
+        {sortedOlderManga.map((item) => (
           <Card 
             key={item.name}
             animeName={item.name} 
@@ -99,10 +100,13 @@ function App({ anime, manga }) {
           />
         ))}
       </div>)}
-        <div className='Header'>Anime (Plan to Watch)</div>
+        <div className='Header'>
+          <span>Anime (Plan to Watch)</span>
+          <SortDropdown onSortChange={setOlderSortType} section="Older" />
+        </div>
         {anime_fin_num == 0 ? (<EmptyMessage></EmptyMessage>)
-        :( <div className = 'grid-container'>
-        {sortedAnime.other_completed.map((item) => (
+        :( <div className='grid-container'>
+        {sortedOlderAnime.map((item) => (
           <Card 
             key={item.name}
             animeName={item.name} 
@@ -113,8 +117,10 @@ function App({ anime, manga }) {
         ))}
       </div>)}
       </div>
-      <footer class="footer"><p>Created by Uji_Gintoki_Bowl and JLi2021</p>
-      <a href = "https://github.com/kathirmeyyappan/mangalert">Github</a></footer>
+      <footer className="footer">
+        <p>Created by Uji_Gintoki_Bowl and JLi2021</p>
+        <a href="https://github.com/kathirmeyyappan/mangalert">Github</a>
+      </footer>
     </div>
   );
 }
