@@ -68,7 +68,7 @@ function App({ anime, manga }) {
         <div className='Category'><h2>Finished Serialization in the Last 3 Months</h2></div>
         <div className='Header'>
           <span>Manga (Plan to Read)</span>
-          <SortDropdown onSortChange={setRecentSortType} section="Recent" />
+          <SortDropdown onSortChange={setRecentSortType} section="Manga" />
         </div>
         {manga_recent_num == 0 ? (<EmptyMessage></EmptyMessage>)
         :( <div className='grid-container'>
@@ -84,7 +84,7 @@ function App({ anime, manga }) {
       </div>)}
         <div className='Header'>
           <span>Anime (Plan to Watch)</span>
-          <SortDropdown onSortChange={setRecentSortType} section="Recent" />
+          <SortDropdown onSortChange={setRecentSortType} section="Anime" />
         </div>
         {anime_recent_num == 0 ? (<EmptyMessage></EmptyMessage>)
         :( <div className='grid-container'>
@@ -101,7 +101,7 @@ function App({ anime, manga }) {
         <div className='Category'><h2>Finished Serialization (Older Than 3 Months)</h2></div>
         <div className='Header'>
           <span>Manga (Plan to Read)</span>
-          <SortDropdown onSortChange={setOlderSortType} section="Older" />
+          <SortDropdown onSortChange={setOlderSortType} section="Manga" />
         </div>
         {manga_fin_num == 0 ? (<EmptyMessage></EmptyMessage>)
         :( <div className='grid-container'>
@@ -117,7 +117,7 @@ function App({ anime, manga }) {
       </div>)}
         <div className='Header'>
           <span>Anime (Plan to Watch)</span>
-          <SortDropdown onSortChange={setOlderSortType} section="Older" />
+          <SortDropdown onSortChange={setOlderSortType} section="Anime" />
         </div>
         {anime_fin_num == 0 ? (<EmptyMessage></EmptyMessage>)
         :( <div className='grid-container'>
